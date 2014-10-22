@@ -23,6 +23,24 @@ src // Project source
     └── index.scss
 ```
 
+## Example
+
+```javascript
+gulp.task('sass', ['clean'], function() {
+  return gulp
+    .src(['src/**/*.scss', '!src/**/_*.scss'])
+    .pipe(gulpCompass({
+      'logger' : true // show progress of compile
+    }))
+    // .pipe(gulp.dest('./build'))  // When Options relative:false, need overwrite the `buildDir` 
+    .pipe(cssmin())
+    .pipe(rename({
+      suffix: "-min"
+    }))
+    .pipe(gulp.dest('./build'))
+})
+```
+
 ## Options
 
 ```

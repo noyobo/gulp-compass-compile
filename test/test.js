@@ -4,7 +4,6 @@ var path = require('path')
 var compass = require('../lib/compass')
 var fs = require('fs')
 var del = require('del')
-var Q = require('q')
 
 //nested, expanded, compact, compressed
 
