@@ -1,12 +1,12 @@
 {
   "name": "gulp-compass-compile",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "gulp-compass-compile ====================",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
   },
-  "files":[
+  "files": [
     "index.js",
     "lib"
   ],

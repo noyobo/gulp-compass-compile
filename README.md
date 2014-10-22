@@ -58,10 +58,8 @@ var optionDefault = {
   'logger': false,
   'imports': [],
   'srcDir': 'src',
-  // 'imagesDir': 'src',
-  // 'jsDir': 'src',
-  // 'fontDir': 'src',
   'buildDir': 'build',
-  'buildStyle': 'nested'
+  'buildStyle': 'nested',
+  'ignoreBuildDir': true
 };
 ```

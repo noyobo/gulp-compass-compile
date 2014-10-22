@@ -4,6 +4,7 @@ var path = require('path')
 var compass = require('../lib/compass')
 var fs = require('fs')
 var del = require('del')
+// var File = require('vinyl')
 
 //nested, expanded, compact, compressed
 
@@ -18,7 +19,7 @@ describe('testing', function() {
       'force': false,
       'boring': false,
       'sourcemap': false,
-      'relative': true,
+      'relative': false,
       'comments': false,
       'imports': [],
       'sassDir': 'src',
@@ -26,8 +27,10 @@ describe('testing', function() {
       'jsDir': 'src',
       'fontDir': 'src',
       'cssOut': 'build',
-      'outStyle': 'nested'
+      'outStyle': 'nested',
+      'ignoreBuild': true
     }, function(code, result, files) {
+      fs.writeFileSync(path.join(__dirname, 'build/home/index-out.css'), String(files[0].contents))
       done()
     })
   });
