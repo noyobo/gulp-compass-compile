@@ -26,6 +26,8 @@ src // Project source
 ## Example
 
 ```javascript
+var gulpCompass = require('gulp-compass-compile')
+
 gulp.task('sass', ['clean'], function() {
   return gulp
     .src(['src/**/*.scss', '!src/**/_*.scss'])
