@@ -2,7 +2,7 @@
 
 var through2 = require('through2');
 var pluginName = 'gulp-compass-compile';
-var PluginError = require('gulp-util/lib/PluginError');
+var gutil = require('gulp-util');
 var compass = require('./lib/compass');
 var path = require('path');
 
@@ -12,22 +12,22 @@ module.exports = function(opts) {
       return callback(null, file);
     }
     if (file.isStream()) {
-      return callback(new PluginError(pluginName, 'Streaming not supported', {
+      return callback(new gutil.PluginError(pluginName, 'Streaming not supported', {
         fileName: file.path,
         showStack: false
       }));
     }
     if (path.basename(file.path)[0] === '_') {
-      return callback();
+      return callback(null, file);
     }
     /*jshint validthis:true */
     var self = this;
     compass.compile(file.path, opts, function(code, result, files) {
       if (code === 127) {
-        return callback(new PluginError(pluginName, 'You need to have Ruby and Compass installed and in your system PATH for this task to work.'));
+        return callback(new gutil.PluginError(pluginName, 'You need to have Ruby and Compass installed and in your system PATH for this task to work.'));
       }
       if (code !== 0) {
-        return callback(new PluginError(pluginName, 'Compass compile faild:\n' + result.stdout), {
+        return callback(new gutil.PluginError(pluginName, 'Compass compile faild:\n' + result.stderr), {
           fileName: file.path
         });
       }

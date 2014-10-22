@@ -24,9 +24,10 @@ gulp.task('sass', ['clean'], function() {
   return gulp
     .src(['src/**/*.scss', '!src/**/_*.scss'])
     .pipe(gulpCompass({
-      'relative': false
+      'relative': true,
+      'logger' : true
     }))
-    .pipe(gulp.dest('./build'))
+    // .pipe(gulp.dest('./build'))
     .pipe(cssmin())
     .pipe(rename({
       suffix: "-min"
