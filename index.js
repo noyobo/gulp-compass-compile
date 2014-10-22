@@ -22,12 +22,12 @@ module.exports = function(opts) {
     }
     /*jshint validthis:true */
     var self = this;
-    compass.compile(file.path, opts, function(code, stdout, stderr, files) {
+    compass.compile(file.path, opts, function(code, result, files) {
       if (code === 127) {
         return callback(new PluginError(pluginName, 'You need to have Ruby and Compass installed and in your system PATH for this task to work.'));
       }
       if (code !== 0) {
-        return callback(new PluginError(pluginName, 'Compass compile faild:\n' + stdout), {
+        return callback(new PluginError(pluginName, 'Compass compile faild:\n' + result.stdout), {
           fileName: file.path
         });
       }

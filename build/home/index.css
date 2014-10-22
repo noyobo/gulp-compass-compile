@@ -46,7 +46,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   display: block; }
 
 .i-sprite, .i-a1, .i-a2 {
-  background-image: url('../home/images/i-s7122265bbf.png');
+  background-image: url('/build/home/images/i-s7122265bbf.png');
   background-repeat: no-repeat; }
 
 .i-a1 {

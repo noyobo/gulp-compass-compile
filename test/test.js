@@ -13,10 +13,22 @@ describe('testing', function() {
   before(function(done) {
     del.sync(path.join(__dirname, 'build'))
     compass.compile(path.join(__dirname, 'src/home/index.scss'), {
-      time: true,
-      force: true,
-      project: __dirname
-    }, function(code, files) {
+      'project': __dirname,
+      'time': true,
+      'debug': false,
+      'force': false,
+      'boring': false,
+      'sourcemap': false,
+      'relative': true,
+      'comments': false,
+      'imports': [],
+      'sassDir': 'src',
+      'imagesDir': 'src',
+      'jsDir': 'src',
+      'fontDir': 'src',
+      'cssOut': 'build',
+      'outStyle': 'nested'
+    }, function(code, result, files) {
       done()
     })
   });

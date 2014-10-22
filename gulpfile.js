@@ -9,21 +9,24 @@ var rename = require('gulp-rename')
 
 var gulpCompass = require('./index')
 
-gulp.task('clean', function(){
+gulp.task('clean', function() {
   del('./build')
 })
 
-gulp.task('lint', function(){
+gulp.task('lint', function() {
   return gulp
     .src(['./lib/*.js', './cli.js', 'index.js'])
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter(stylish))
 })
 
-gulp.task('sass', ['clean'] ,function(){
+gulp.task('sass', ['clean'], function() {
   return gulp
     .src(['src/**/*.scss', '!src/**/_*.scss'])
-    .pipe(gulpCompass())
+    .pipe(gulpCompass({
+      'relative': false
+    }))
+    .pipe(gulp.dest('./build'))
     .pipe(cssmin())
     .pipe(rename({
       suffix: "-min"
@@ -32,6 +35,6 @@ gulp.task('sass', ['clean'] ,function(){
 })
 
 
-gulp.task('watch', function(){
-  gulp.watch(['src/**/*.scss', '!src/**/_*.scss'],['sass'])
+gulp.task('watch', function() {
+  gulp.watch(['src/**/*.scss', '!src/**/_*.scss'], ['sass'])
 })
