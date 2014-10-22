@@ -1,42 +1,54 @@
 'use strict';
 var expect = require('chai').expect
 var path = require('path')
-var compass = require('../lib/compass')
+var compile = require('../lib/compass').compile;
 var fs = require('fs')
 var del = require('del')
-// var File = require('vinyl')
+var async = require('async')
 
 //nested, expanded, compact, compressed
+var read_file = function(filepath) {
+  var contents;
+  try {
+    contents = fs.readFileSync(String(filepath), {
+      encoding: 'utf8'
+    });
+    // Strip any BOM that might exist.
+    if (contents.charCodeAt(0) === 0xFEFF) {
+      contents = contents.substring(1);
+    }
+    return contents;
+  } catch (e) {
+    throw new Error('Unable to read "' + filepath + '" file');
+  }
+};
 
 describe('testing', function() {
   this.timeout(60000)
-  before(function(done) {
-    del.sync(path.join(__dirname, 'build'))
-    compass.compile(path.join(__dirname, 'src/home/index.scss'), {
-      'project': __dirname,
-      'time': true,
-      'debug': false,
-      'force': false,
-      'boring': false,
-      'sourcemap': false,
-      'relative': false,
-      'comments': false,
-      'imports': [],
-      'sassDir': 'src',
-      'imagesDir': 'src',
-      'jsDir': 'src',
-      'fontDir': 'src',
-      'cssOut': 'build',
-      'outStyle': 'nested',
-      'ignoreBuild': true
-    }, function(code, result, files) {
-      fs.writeFileSync(path.join(__dirname, 'build/home/index-out.css'), String(files[0].contents))
+  describe('test relative compass', function() {
+    var build = path.join(__dirname, 'build')
+    before(function(done) {
+      async.parallel([
+        function(callback) {
+          compile(path.join(__dirname, 'src/home/index.scss'), {
+            project: __dirname
+          }, function(err, result, files) {
+            callback(null, files)
+          })
+        }
+      ], function(err, results) {
+        // console.log(results)
+        done()
+      })
+    });
+    after(function(done) {
+      del.sync(build)
       done()
     })
-  });
-  it('file complete', function(done) {
-    var v = fs.existsSync(path.join(__dirname, 'build/home/index.css'))
-    expect(v).to.be.true;
-    done()
+    it('default compile ok', function() {
+      var e = read_file(path.join(__dirname, 'expectBuild/home/index.css'))
+      var b = read_file(path.join(__dirname, 'build/home/index.css'))
+      expect(b).to.be.string(e);
+    });
   });
 });
