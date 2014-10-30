@@ -2,6 +2,7 @@ gulp-compass-compile
 ====================
 
 [![npm version](http://img.shields.io/npm/v/gulp-compass-compile.svg)](https://www.npmjs.org/package/gulp-compass-compile) [![npm download](http://img.shields.io/npm/dm/gulp-compass-compile.svg)](https://www.npmjs.org/package/gulp-compass-compile) [![npm engines](http://img.shields.io/node/v/gulp-compass-compile.svg)](https://www.npmjs.org/package/gulp-compass-compile) [![npm dependencise](https://david-dm.org/noyobo/gulp-compass-compile.svg)](https://david-dm.org/noyobo/gulp-compass-compile) [![build status](http://img.shields.io/travis/noyobo/gulp-compass-compile.svg)](https://travis-ci.org/noyobo/gulp-compass-compile) 
+[![Coverage Status](https://img.shields.io/coveralls/noyobo/gulp-compass-compile.svg)](https://coveralls.io/r/noyobo/gulp-compass-compile)
 
 ## Directory rule 
 

@@ -25,7 +25,7 @@ var read_file = function(filepath) {
 
 describe('testing', function() {
   this.timeout(60000)
-  describe('test relative compass', function() {
+  describe('test `relative` compass', function() {
     var build = path.join(__dirname, 'build')
     before(function(done) {
       async.parallel([
@@ -37,7 +37,35 @@ describe('testing', function() {
           })
         }
       ], function(err, results) {
-        // console.log(results)
+        done()
+      })
+    });
+    after(function(done) {
+      del.sync(build)
+      done()
+    })
+    it('ok', function() {
+      var e = read_file(path.join(__dirname, 'expectBuild/home/index.css'))
+      var b = read_file(path.join(__dirname, 'build/home/index.css'))
+      expect(b).to.be.string(e);
+    });
+  });
+
+
+  describe('test `absolute` compass', function() {
+    var build = path.join(__dirname, 'build')
+    before(function(done) {
+      async.parallel([
+        function(callback) {
+          compile(path.join(__dirname, 'src/home/absolute.scss'), {
+            project: __dirname,
+            relative: false
+          }, function(err, result, files) {
+            fs.writeFileSync(path.join(__dirname, 'build/home/absolute.css'), String(files[0].contents))
+            callback(null, files)
+          })
+        }
+      ], function(err, results) {
         done()
       })
     });
@@ -46,8 +74,62 @@ describe('testing', function() {
       done()
     })
     it('default compile ok', function() {
-      var e = read_file(path.join(__dirname, 'expectBuild/home/index.css'))
-      var b = read_file(path.join(__dirname, 'build/home/index.css'))
+      var e = read_file(path.join(__dirname, 'expectBuild/home/absolute.css'))
+      var b = read_file(path.join(__dirname, 'build/home/absolute.css'))
+      expect(b).to.be.string(e);
+    });
+  });
+
+
+  describe('test `import` compass', function() {
+    var build = path.join(__dirname, 'build')
+    before(function(done) {
+      async.parallel([
+        function(callback) {
+          compile(path.join(__dirname, 'src/home/import.scss'), {
+            project: __dirname
+          }, function(err, result, files) {
+            callback(null, files)
+          })
+        }
+      ], function(err, results) {
+        done()
+      })
+    });
+    after(function(done) {
+      del.sync(build)
+      done()
+    })
+    it('ok', function() {
+      var e = read_file(path.join(__dirname, 'expectBuild/home/import.css'))
+      var b = read_file(path.join(__dirname, 'build/home/import.css'))
+      expect(b).to.be.string(e);
+    });
+  });
+
+  describe('test `imports` compass', function() {
+    var build = path.join(__dirname, 'build')
+    before(function(done) {
+      async.parallel([
+        function(callback) {
+          compile(path.join(__dirname, 'src/home/import2.scss'), {
+            project: __dirname,
+            imports: ['./imports']
+          }, function(err, result, files) {
+            callback(null, files)
+          })
+        }
+      ], function(err, results) {
+        done()
+      })
+    });
+    after(function(done) {
+      del.sync(build)
+      done()
+    })
+    it('ok', function() {
+      var e = read_file(path.join(__dirname, 'expectBuild/home/import2.css'))
+      var b = read_file(path.join(__dirname, 'build/home/import2.css'))
       expect(b).to.be.string(e);
     });
   });
