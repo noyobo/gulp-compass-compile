@@ -29,21 +29,21 @@
   },
   "homepage": "https://github.com/noyobo/gulp-compass-compile",
   "devDependencies": {
-    "async": "^1.2.1",
-    "chai": "^3.0.0",
-    "coveralls": "^2.11.2",
-    "del": "^1.2.0",
+    "async": "^2.6.0",
+    "chai": "^4.1.2",
+    "coveralls": "^3.0.0",
+    "del": "^3.0.0",
     "gulp": "^3.9.0",
-    "gulp-jshint": "^1.11.0",
-    "istanbul": "^0.3.16",
+    "gulp-jshint": "^2.1.0",
+    "istanbul": "^0.4.5",
     "jshint-stylish": "^2.0.1",
-    "mocha": "^2.2.5",
-    "parallel": "^0.2.1"
+    "mocha": "^5.0.5",
+    "parallel": "^1.2.0"
   },
   "dependencies": {
     "gulp-util": "^3.0.6",
     "through2": "^2.0.0",
-    "vinyl": "^0.5.0",
+    "vinyl": "^2.1.0",
     "which": "^1.1.1"
   }
 }
